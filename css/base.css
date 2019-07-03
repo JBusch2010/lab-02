@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 4em;
+  padding: 15px;
+  overflow: hidden;
+}
+
+header > h1 {
+  text-align: center;
+}
+
+header > select {
+  float: left;
+  font-family: 'Raleway', sans-serif;
+  font-size: .35em;
+}
+
+header > select > option {
+  font-family: 'Raleway', sans-serif;
+}
+
+main {
+  overflow: hidden;
+  margin: auto;
+  max-width: 1450px;
+}
+
+section {
+  float: left;
+  height: 430px;
+  width: 340px;
+  border: 5px solid #301d57;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 10px;
+}
+
+section:hover {
+  box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+  height: 440px;
+  width: 350px;
+  margin: 5px;
+}
+
+section:first-child{
+  display: none;
+}
+
+section:nth-child(4n+1){
+  margin-right: 0px;
+}
+
+section > h2 {
+  text-align: center;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 1.8em;
+}
+
+section > div {
+  position: relative;
+  width: 280px;
+  min-height: 320px;
+  top: -10px;
+  margin: auto;
+}
+
+section > div > img {
+  z-index: -1;
+  width: 280px;
+  max-height: 340px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+section > p {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+}
