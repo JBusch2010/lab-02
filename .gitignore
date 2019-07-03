@@ -5,7 +5,6 @@
 
 db 
 temp 
-data
 .env 
 *.env
 package-lock.json
