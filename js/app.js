@@ -29,12 +29,24 @@ HornedAnimal.prototype.renderWithJquery = function(){
 
 HornedAnimal.prototype.addToDropdown = function(){
   let $dropDown = $('select');
-  const $newOption = $('<option></option>');
 
-  $newOption.attr('value', this.keyword);
-  $newOption.text(this.keyword);
+  let alreadyThere = false;
+  let keyword = this.keyword;
 
-  $dropDown.append($newOption);
+  $dropDown.children().each(function() {
+    if (this.value === keyword){
+      alreadyThere = true;
+    }
+  });
+
+  if (alreadyThere === false) {
+    const $newOption = $('<option></option>');
+
+    $newOption.attr('value', this.keyword);
+    $newOption.text(this.keyword);
+
+    $dropDown.append($newOption);
+  }
 };
 HornedAnimal.filterAnimals = function(selected){
   $('#photo-template').siblings().remove();
