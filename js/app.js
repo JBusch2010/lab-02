@@ -14,7 +14,7 @@ const HornedAnimal = function(image_url, title, description, keyword, horns) {
 HornedAnimal.allAnimals = [];
 
 HornedAnimal.prototype.renderWithJquery = function(){
-  const $newAnimal = $('<section></section');
+  const $newAnimal = $('<section></section>');
 
   const animalTemplateHTML = $('#photo-template').html();
 
@@ -27,23 +27,47 @@ HornedAnimal.prototype.renderWithJquery = function(){
   $('main').append($newAnimal);
 };
 
+HornedAnimal.prototype.addToDropdown = function(){
+  let $dropDown = $('select');
+  const $newOption = $('<option></option>');
 
+  $newOption.attr('value', this.keyword);
+  $newOption.text(this.keyword);
+
+  $dropDown.append($newOption);
+};
+HornedAnimal.filterAnimals = function(selected){
+  $('#photo-template').siblings().remove();
+  HornedAnimal.allAnimals.forEach(animal => {
+    if(selected === animal.keyword){
+      animal.renderWithJquery();
+    }
+    else if(selected === 'default'){
+      animal.renderWithJquery();
+    }
+  });
+};
 HornedAnimal.getAllAnimals = function(){
   $.get('../data/page-1.json', 'json').then(animalJSON => {
     animalJSON.forEach(animal => {
       new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
     });
-    //TODO: build render function
 
     this.allAnimals.forEach(animal => {
-      animal.renderWithJquery();
+      animal.addToDropdown();
     });
+
+    $('select').change(function() {
+      let selected = this.value;
+      HornedAnimal.filterAnimals(selected);
+    });
+    HornedAnimal.filterAnimals('default');
   });
+
+  //TODO: build render function
 };
 
 HornedAnimal.getAllAnimals();
-
-
 
 
 
