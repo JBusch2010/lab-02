@@ -60,7 +60,7 @@ HornedAnimal.filterAnimals = function(selected){
   });
 };
 HornedAnimal.getAllAnimals = function(){
-  $.get('/data/page-1.json', 'json').then(animalJSON => {
+  $.get('data/page-1.json', 'json').then(animalJSON => {
     animalJSON.forEach(animal => {
       new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
     });
@@ -76,7 +76,6 @@ HornedAnimal.getAllAnimals = function(){
     HornedAnimal.filterAnimals('default');
   });
 
-  //TODO: build render function
 };
 
 HornedAnimal.getAllAnimals();
