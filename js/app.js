@@ -120,24 +120,6 @@ HornedAnimal.getAllAnimals = function(){
 
     this.makeNewHornedAnimal(animalJSON);
 
-<<<<<<< HEAD
-    $.get('data/page-2.json', 'json').then(moreAnimalJSON => {
-
-      this.makeNewHornedAnimal(moreAnimalJSON);
-
-      this.allAnimals.forEach(animal => {
-        animal.addToDropdown();
-      });
-
-      $('select').change(function() {
-        let selected = this.value;
-        HornedAnimal.filterAnimals(selected);
-      });
-      HornedAnimal.filterAnimals('default');
-
-    });
-
-=======
     this.allAnimals.forEach(animal => {
       animal.addToDropdown();
       animal.renderWithHandlebars();
@@ -148,7 +130,6 @@ HornedAnimal.getAllAnimals = function(){
   //     HornedAnimal.filterAnimals(selected);
   //   });
   //   HornedAnimal.filterAnimals('default');
->>>>>>> fb6f30ab4fd55700b0ead38fc1178070975b40aa
   });
 
 };
