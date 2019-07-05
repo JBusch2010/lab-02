@@ -23,20 +23,11 @@ HornedAnimal.prototype.renderWithHandlebars = function(){
   $('.photo-template-placeholder').append(newSectionHTML);
 };
 
-
-
-HornedAnimal.prototype.renderWithJquery = function(){
-  const $newAnimal = $('<section></section>');
-
-  const animalTemplateHTML = $('#photo-template').html();
-
-  $newAnimal.html(animalTemplateHTML);
-
-  $newAnimal.find('h2').text(this.title);
-  $newAnimal.find('img').attr('src', this.image_url);
-  $newAnimal.find('p').text(this.description);
-
-  $('main').append($newAnimal);
+HornedAnimal.prototype.renderWithHandlebars = function(){
+  const source = $('#photo-template').html();
+  const template = Handlebars.compile(source);
+  const newHtml = template(this);
+  $('main').append(newHtml);
 };
 
 HornedAnimal.prototype.addToDropdown = function(){
@@ -58,29 +49,30 @@ HornedAnimal.prototype.addToDropdown = function(){
     $('select').append(newDropdown);
   }
 };
-HornedAnimal.filterAnimals = function(selected){
-  console.log($('main').children());
-  let renderedAnimals = $('main').children();
-  renderedAnimals.each(function(){
 
-    if(selected === this.keyword){
-      this.show();
-    }
-    else if(selected === 'default'){
-      this.show();
-    }
-    else if (selected !== this.keyword){
-      this.hide();
-    }
+HornedAnimal.filterAnimals = function(selected){
+  let currentClass = $('.' + selected);
+  let renderedAnimals = $('main').children();
+
+  if (selected === 'default'){
+    renderedAnimals.show();
+  } else {
+    renderedAnimals.hide();
+    currentClass.show();
+  }
+};
+
+HornedAnimal.makeNewHornedAnimal = function(animalJSON){
+  animalJSON.forEach(animal => {
+    new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
   });
 };
+
 HornedAnimal.getAllAnimals = function(){
 
   $.get('data/page-1.json', 'json').then(animalJSON => {
 
-    animalJSON.forEach(animal => {
-      new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
-    });
+    this.makeNewHornedAnimal(animalJSON);
 
     this.allAnimals.forEach(animal => {
       animal.addToDropdown();
