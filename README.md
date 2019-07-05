@@ -2,31 +2,31 @@
 
 ### Number and name of feature: Feature #1 Display Images
 
-Estimate of time needed to complete: ____1 hr_
+Estimate of time needed to complete: __1 hr__
 
-Start time: ___915am__
+Start time: __915am__
 
-Finish time: __954am___
+Finish time: __954am__
 
-Actual time needed to complete: ___40 min__
+Actual time needed to complete: __40 min__
 
 ### Feature #2 Filter Imgaes
 https://stackoverflow.com/questions/19922729/how-to-get-jquery-dropdown-value-onchange-event
 
-Estimate of time needed to complete: ____1 hr_
+Estimate of time needed to complete: __1 hr__
 
-Start time: ___10am__
+Start time: __10am__
 
-Finish time: __11:11am __
+Finish time: __11:11am__
 
 Actual time needed to complete: __1:10__
 
 ### Feature #3 Style the Application
 https://css-tricks.com/centering-css-complete-guide/
 
-Estimate of time needed to complete: ____1 hr_
+Estimate of time needed to complete: __1 hr__
 
-Start time: ___11:15am__
+Start time: __11:15am__
 
 Finish time: __12:25__
 
@@ -36,3 +36,14 @@ Actual time needed to complete: __1:10__
 * Marisha Hoza
 * Renee Messick
 * Joachen Busch
+
+# lab-03
+Number and name of feature: __Feature 1: Pagination__
+
+Estimate of time needed to complete: __30 minutes__
+
+Start time: __12:30__
+
+Finish time: _____
+
+Actual time needed to complete: _____

@@ -27,6 +27,15 @@ HornedAnimal.prototype.renderWithJquery = function(){
   $('main').append($newAnimal);
 };
 
+HornedAnimal.prototype.renderWithHandlebars = function(){
+  const source = $('#photo-template').html();
+  const template = Handlebars.compile(source);
+  const newHtml = template(this);
+  console.log(newHtml);
+
+  $('main').append(newHtml);
+};
+
 HornedAnimal.prototype.addToDropdown = function(){
   let $dropDown = $('select');
 
@@ -48,34 +57,49 @@ HornedAnimal.prototype.addToDropdown = function(){
     $dropDown.append($newOption);
   }
 };
+
 HornedAnimal.filterAnimals = function(selected){
   $('#photo-template').siblings().remove();
   HornedAnimal.allAnimals.forEach(animal => {
     if(selected === animal.keyword){
-      animal.renderWithJquery();
+      animal.renderWithHandlebars();
     }
     else if(selected === 'default'){
-      animal.renderWithJquery();
+      animal.renderWithHandlebars();
     }
   });
 };
+
+HornedAnimal.makeNewHornedAnimal = function(animalJSON){
+  animalJSON.forEach(animal => {
+    new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
+  });
+};
+
+
+
 HornedAnimal.getAllAnimals = function(){
 
   $.get('data/page-1.json', 'json').then(animalJSON => {
 
-    animalJSON.forEach(animal => {
-      new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
+    this.makeNewHornedAnimal(animalJSON);
+
+    $.get('data/page-2.json', 'json').then(moreAnimalJSON => {
+
+      this.makeNewHornedAnimal(moreAnimalJSON);
+
+      this.allAnimals.forEach(animal => {
+        animal.addToDropdown();
+      });
+
+      $('select').change(function() {
+        let selected = this.value;
+        HornedAnimal.filterAnimals(selected);
+      });
+      HornedAnimal.filterAnimals('default');
+
     });
 
-    this.allAnimals.forEach(animal => {
-      animal.addToDropdown();
-    });
-
-    $('select').change(function() {
-      let selected = this.value;
-      HornedAnimal.filterAnimals(selected);
-    });
-    HornedAnimal.filterAnimals('default');
   });
 
 };

@@ -46,9 +46,9 @@ section:hover {
   margin: 5px;
 }
 
-section:first-child{
+/* section:first-child{
   display: none;
-}
+} */
 
 section:nth-child(4n+1){
   margin-right: 0px;
