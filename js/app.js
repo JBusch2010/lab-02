@@ -1,30 +1,6 @@
 'use strict';
 /*global $ */
 
-$(function () {
-  const source = $('#photo-template').html();
-
-  const theTemplate = Handlebars.compile(source);
-
-  const context = {
-    'image_url': 'http://3.bp.blogspot.com/_DBYF1AdFaHw/TE-f0cDQ24I/AAAAAAAACZg/l-FdTZ6M7z8/s1600/Unicorn_and_Narwhal_by_dinglehopper.jpg',
-    'title': 'UniWhal',
-    'description': 'A unicorn and a narwhal nuzzling their horns',
-    'keyword': 'narwhal',
-    'horns': 1
-  };
-
-  const theCompiledHtml = theTemplate(context);
-
-  $('.photo-template-placeholder').html(theCompiledHtml);
-
-});
-
-
-
-
-
-
 const HornedAnimal = function(image_url, title, description, keyword, horns) {
   this.image_url = image_url;
   this.title = title;
@@ -64,34 +40,37 @@ HornedAnimal.prototype.renderWithJquery = function(){
 };
 
 HornedAnimal.prototype.addToDropdown = function(){
-  let $dropDown = $('select');
+  const source = $('#dropdown-template').html();
+  const template = Handlebars.compile(source);
+
+  const newDropdown = template(this);
 
   let alreadyThere = false;
   let keyword = this.keyword;
 
-  $dropDown.children().each(function() {
+  $('select').children().each(function() {
     if (this.value === keyword){
       alreadyThere = true;
     }
   });
 
   if (alreadyThere === false) {
-    const $newOption = $('<option></option>');
-
-    $newOption.attr('value', this.keyword);
-    $newOption.text(this.keyword);
-
-    $dropDown.append($newOption);
+    $('select').append(newDropdown);
   }
 };
 HornedAnimal.filterAnimals = function(selected){
-  $('#photo-template').siblings().remove();
-  HornedAnimal.allAnimals.forEach(animal => {
-    if(selected === animal.keyword){
-      animal.renderWithJquery();
+  console.log($('main').children());
+  let renderedAnimals = $('main').children();
+  renderedAnimals.each(function(){
+
+    if(selected === this.keyword){
+      this.show();
     }
     else if(selected === 'default'){
-      animal.renderWithJquery();
+      this.show();
+    }
+    else if (selected !== this.keyword){
+      this.hide();
     }
   });
 };
@@ -108,11 +87,11 @@ HornedAnimal.getAllAnimals = function(){
       animal.renderWithHandlebars();
     });
 
-  //   $('select').change(function() {
-  //     let selected = this.value;
-  //     HornedAnimal.filterAnimals(selected);
-  //   });
-  //   HornedAnimal.filterAnimals('default');
+    $('select').change(function() {
+      let selected = this.value;
+      HornedAnimal.filterAnimals(selected);
+    });
+    HornedAnimal.filterAnimals('default');
   });
 
 };
