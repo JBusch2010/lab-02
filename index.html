@@ -19,7 +19,7 @@
     <script id="photo-template" type="text/x-handlebars-template">
       <section class="{{keyword}} {{file}}">
         <h1>{{title}}</h1>
-        <div>
+        <div class="{{horns}}">
           <img src="{{image_url}}">
         </div>
         <p>{{description}}</p>
@@ -28,6 +28,7 @@
 
     <header>
       <h1>The Gallery of Horns</h1>
+      
       <select id="keyword-selector">
         <option value="default">Filter by Keyword</option>
       </select>
@@ -36,6 +37,13 @@
         <option value="page-1">Page-1</option>
         <option value="page-2">Page-2</option>
       </select>
+
+      <select id="sorting-selector">
+        <option value="default">Unsorted</option>
+        <option value="title">Title</option>
+        <option value="number-of-horns">Number of Horns</option>
+          
+        </select>
     </header>
 
     <main class="photo-template-placeholder">

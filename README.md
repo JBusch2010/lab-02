@@ -46,6 +46,47 @@ Estimate of time needed to complete: __30 minutes__
 
 Start time: __12:30__
 
-Finish time: _____
+Finish time: __1:30pm__
 
-Actual time needed to complete: _____
+Actual time needed to complete: __1 hr__
+
+Number and name of feature: __Feature 2: templating
+
+Estimate of time needed to complete: __60 minutes__
+
+Start time: __1:30pm__
+
+Finish time: __2:00pm__
+
+Actual time needed to complete: __30 minutes__
+
+
+Number and name of feature: __Feature 3: Flexbox__
+
+Estimate of time needed to complete: __60 minutes__
+
+Start time: __2:00pm__
+
+Finish time: __2:15pm__
+
+Actual time needed to complete: __15 minutes__
+
+
+https://riptutorial.com/jquery/example/11477/sorting-elements
+
+Number and name of feature: __Feature 4: Sort the Images__
+
+Estimate of time needed to complete: __60 minutes__
+
+Start time: __2:15pm__
+
+Finish time: __4:15pm__
+
+Actual time needed to complete: __2 hours__
+
+
+
+
+
+
+

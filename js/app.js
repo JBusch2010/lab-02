@@ -52,9 +52,10 @@ HornedAnimal.prototype.addToDropdown = function(){
   }
 };
 
-HornedAnimal.filterAnimals = function(keySelected, pageSelected){
+HornedAnimal.filterAnimals = function(keySelected, pageSelected, sortingSelected){
   let currentClass = $('.' + keySelected);
   let renderedAnimals = $('main').children();
+  let allTitleSelected = renderedAnimals.find('h1').text();
 
   if (keySelected === 'default'){
     renderedAnimals.show();
@@ -68,6 +69,31 @@ HornedAnimal.filterAnimals = function(keySelected, pageSelected){
   } else {
     $('.page-1').hide();
   }
+
+  if (sortingSelected === 'title'){
+    renderedAnimals.sort((a,b) => {
+      let aTitle = $(a).find('h1').text();
+      let bTitle = $(b).find('h1').text();
+      if (aTitle < bTitle) {return -1;}
+      else if (aTitle > bTitle) { return 1;}
+      else { return 0;}
+
+    });
+    $('main').append(renderedAnimals);
+  }
+
+  if (sortingSelected === 'number-of-horns'){
+    renderedAnimals.sort((a,b) =>{
+      let aHorns = parseInt($(a).find('div').attr('class'));
+      let bHorns = parseInt($(b).find('div').attr('class'));
+      if (aHorns < bHorns) {return -1;}
+      else if (aHorns > bHorns) { return 1;}
+      else { return 0;}
+    });
+
+    $('main').append(renderedAnimals);
+  }
+
 };
 
 HornedAnimal.makeNewHornedAnimal = function(animalJSON, fileName){
@@ -94,9 +120,10 @@ HornedAnimal.getAllAnimals = function(){
       $('select').change(function() {
         let keySelected = $('#keyword-selector').val();
         let pageSelected = $('#file-selector').val();
-        console.log(pageSelected);
+        let sortingSelected = $('#sorting-selector').val();
 
-        HornedAnimal.filterAnimals(keySelected, pageSelected);
+
+        HornedAnimal.filterAnimals(keySelected, pageSelected, sortingSelected);
       });
 
       HornedAnimal.filterAnimals('default', 'page-1');
