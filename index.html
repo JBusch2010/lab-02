@@ -17,7 +17,7 @@
     </script>
 
     <script id="photo-template" type="text/x-handlebars-template">
-      <section class="{{keyword}}">
+      <section class="{{keyword}} {{file}}">
         <h1>{{title}}</h1>
         <div>
           <img src="{{image_url}}">
@@ -28,15 +28,20 @@
 
     <header>
       <h1>The Gallery of Horns</h1>
-      <select >
+      <select id="keyword-selector">
         <option value="default">Filter by Keyword</option>
+      </select>
+
+      <select id="file-selector">
+        <option value="page-1">Page-1</option>
+        <option value="page-2">Page-2</option>
       </select>
     </header>
 
     <main class="photo-template-placeholder">
 
     </main>
-    
+
     <footer>
       &copy; 2018 Code Fellows
     </footer>
