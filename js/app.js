@@ -1,13 +1,13 @@
 'use strict';
 /*global $ */
 
-const HornedAnimal = function(image_url, title, description, keyword, horns) {
+const HornedAnimal = function(image_url, title, description, keyword, horns, file) {
   this.image_url = image_url;
   this.title = title;
   this.description = description;
   this.keyword = keyword;
   this.horns = horns;
-
+  this.file = file;
   HornedAnimal.allAnimals.push(this);
 };
 
@@ -28,6 +28,8 @@ HornedAnimal.prototype.renderWithHandlebars = function(){
   const template = Handlebars.compile(source);
   const newHtml = template(this);
   $('main').append(newHtml);
+
+
 };
 
 HornedAnimal.prototype.addToDropdown = function(){
@@ -39,32 +41,38 @@ HornedAnimal.prototype.addToDropdown = function(){
   let alreadyThere = false;
   let keyword = this.keyword;
 
-  $('select').children().each(function() {
+  $('#keyword-selector').children().each(function() {
     if (this.value === keyword){
       alreadyThere = true;
     }
   });
 
   if (alreadyThere === false) {
-    $('select').append(newDropdown);
+    $('#keyword-selector').append(newDropdown);
   }
 };
 
-HornedAnimal.filterAnimals = function(selected){
-  let currentClass = $('.' + selected);
+HornedAnimal.filterAnimals = function(keySelected, pageSelected){
+  let currentClass = $('.' + keySelected);
   let renderedAnimals = $('main').children();
 
-  if (selected === 'default'){
+  if (keySelected === 'default'){
     renderedAnimals.show();
   } else {
     renderedAnimals.hide();
     currentClass.show();
   }
+
+  if (pageSelected === 'page-1') {
+    $('.page-2').hide();
+  } else {
+    $('.page-1').hide();
+  }
 };
 
-HornedAnimal.makeNewHornedAnimal = function(animalJSON){
+HornedAnimal.makeNewHornedAnimal = function(animalJSON, fileName){
   animalJSON.forEach(animal => {
-    new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns);
+    new HornedAnimal(animal.image_url, animal.title, animal.description, animal.keyword, animal.horns, fileName);
   });
 };
 
@@ -72,18 +80,27 @@ HornedAnimal.getAllAnimals = function(){
 
   $.get('data/page-1.json', 'json').then(animalJSON => {
 
-    this.makeNewHornedAnimal(animalJSON);
+    this.makeNewHornedAnimal(animalJSON, 'page-1');
 
-    this.allAnimals.forEach(animal => {
-      animal.addToDropdown();
-      animal.renderWithHandlebars();
-    });
+    $.get('data/page-2.json', 'json').then(moreAnimalJSON => {
 
-    $('select').change(function() {
-      let selected = this.value;
-      HornedAnimal.filterAnimals(selected);
+      this.makeNewHornedAnimal(moreAnimalJSON, 'page-2');
+
+      this.allAnimals.forEach(animal => {
+        animal.addToDropdown();
+        animal.renderWithHandlebars();
+      });
+
+      $('select').change(function() {
+        let keySelected = $('#keyword-selector').val();
+        let pageSelected = $('#file-selector').val();
+        console.log(pageSelected);
+
+        HornedAnimal.filterAnimals(keySelected, pageSelected);
+      });
+
+      HornedAnimal.filterAnimals('default', 'page-1');
     });
-    HornedAnimal.filterAnimals('default');
   });
 
 };

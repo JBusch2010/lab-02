@@ -27,10 +27,12 @@ main {
   overflow: hidden;
   margin: auto;
   max-width: 1450px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 section {
-  float: left;
   height: 430px;
   width: 340px;
   border: 5px solid #301d57;
@@ -45,10 +47,6 @@ section:hover {
   width: 350px;
   margin: 5px;
 }
-
-/* section:first-child{
-  display: none;
-} */
 
 section:nth-child(4n+1){
   margin-right: 0px;
