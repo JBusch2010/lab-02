@@ -1,6 +1,30 @@
 'use strict';
 /*global $ */
 
+$(function () {
+  const source = $('#photo-template').html();
+
+  const theTemplate = Handlebars.compile(source);
+
+  const context = {
+    'image_url': 'http://3.bp.blogspot.com/_DBYF1AdFaHw/TE-f0cDQ24I/AAAAAAAACZg/l-FdTZ6M7z8/s1600/Unicorn_and_Narwhal_by_dinglehopper.jpg',
+    'title': 'UniWhal',
+    'description': 'A unicorn and a narwhal nuzzling their horns',
+    'keyword': 'narwhal',
+    'horns': 1
+  };
+
+  const theCompiledHtml = theTemplate(context);
+
+  $('.photo-template-placeholder').html(theCompiledHtml);
+
+});
+
+
+
+
+
+
 const HornedAnimal = function(image_url, title, description, keyword, horns) {
   this.image_url = image_url;
   this.title = title;
@@ -12,6 +36,18 @@ const HornedAnimal = function(image_url, title, description, keyword, horns) {
 };
 
 HornedAnimal.allAnimals = [];
+
+HornedAnimal.prototype.renderWithHandlebars = function(){
+
+  const source = $('#photo-template').html();
+  const template = Handlebars.compile(source);
+
+  const newSectionHTML = template(this);
+
+  $('.photo-template-placeholder').append(newSectionHTML);
+};
+
+
 
 HornedAnimal.prototype.renderWithJquery = function(){
   const $newAnimal = $('<section></section>');
@@ -84,6 +120,7 @@ HornedAnimal.getAllAnimals = function(){
 
     this.makeNewHornedAnimal(animalJSON);
 
+<<<<<<< HEAD
     $.get('data/page-2.json', 'json').then(moreAnimalJSON => {
 
       this.makeNewHornedAnimal(moreAnimalJSON);
@@ -100,11 +137,20 @@ HornedAnimal.getAllAnimals = function(){
 
     });
 
+=======
+    this.allAnimals.forEach(animal => {
+      animal.addToDropdown();
+      animal.renderWithHandlebars();
+    });
+
+  //   $('select').change(function() {
+  //     let selected = this.value;
+  //     HornedAnimal.filterAnimals(selected);
+  //   });
+  //   HornedAnimal.filterAnimals('default');
+>>>>>>> fb6f30ab4fd55700b0ead38fc1178070975b40aa
   });
 
 };
 
 HornedAnimal.getAllAnimals();
-
-
-
