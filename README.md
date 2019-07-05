@@ -38,6 +38,8 @@ Actual time needed to complete: __1:10__
 * Joachen Busch
 
 # lab-03
+https://stackoverflow.com/questions/17097947/jquery-using-a-variable-as-a-selector
+
 Number and name of feature: __Feature 1: Pagination__
 
 Estimate of time needed to complete: __30 minutes__
